@@ -29,6 +29,25 @@ echo "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAv+IdIP7geRsOXUz7scIKTwkfxJ3J7UelRObTif
 chmod 600 .ssh/authorized_keys
 ```
 
+## Preparing a Destination Server
+
+The destination server will need to be kickstarted with CentOS 7. Create a user called `sepia_ansible` on the destination server:
+
+```bash
+adduser sepia_ansible
+passwd sepia_ansible
+usermod -aG wheel sepia_ansible
+```
+
+Then edit `/etc/sudoers` and add these lines:
+
+```
+User_Alias        NO_SUDO_PASSWORD = sepia_ansible
+NO_SUDO_PASSWORD  ALL = (ALL) NOPASSWD: ALL
+```
+
+You will then need to add your public key from your host control machine to `sepia_ansible`'s authorized keys.
+
 ## Getting started
 
 Clone this repository.
